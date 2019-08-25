@@ -32,8 +32,9 @@ export default function App() {
     )
 }
 
+
 export const AppContext = createContext({
-    subset: {id: 14, name: "New subset", status: "DRAFT"}
+    subset: {}
 });
 
 export function NoMatch({location}) {
