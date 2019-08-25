@@ -1,5 +1,6 @@
 import React from 'react';
 import '../css/pages.css';
+import { Link } from "react-router-dom";
 
 export default function WelcomePage() {
     return (
@@ -14,6 +15,9 @@ export default function WelcomePage() {
                     rel="noopener noreferrer"
                 >GitHub repository</a>
             </p>
+
+            <button><Link to="/classifications/13">Show an existent subset</Link></button>
+            <button>Create a subset</button>
         </div>
     );
 }
