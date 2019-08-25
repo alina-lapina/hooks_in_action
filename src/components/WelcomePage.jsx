@@ -16,8 +16,8 @@ export default function WelcomePage() {
                 >GitHub repository</a>
             </p>
 
-            <button><Link to="/classifications/13">Show an existent subset</Link></button>
-            <button>Create a subset</button>
+            <button><Link to="/subsets/13">Show an existent subset</Link></button>
+            <button><Link to="/create">Create an existent subset</Link></button>
         </div>
     );
 }
