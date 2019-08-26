@@ -1,5 +1,8 @@
-import React, { useState } from 'react'
-import {AppContext} from "./App.js"
+import React, { useState, createContext } from 'react'
+
+export const AppContext = createContext({
+    subset: {}
+});
 
 export const ContextProvider = ({ children }) => {
     const [subset, setSubset] = useState(AppContext._currentValue);

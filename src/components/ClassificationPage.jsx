@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import '../css/pages.css';
-import {AppContext} from './App';
+import {AppContext} from '../controllers/context';
 
 export default function ClassificationPage({match}) {
     const [subset, setSubset] = useContext(AppContext);

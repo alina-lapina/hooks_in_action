@@ -1,8 +1,8 @@
-import React, {createContext} from 'react';
+import React from 'react';
 import logo from '../images/SSB_logo.png';
 import '../css/App.css';
 import {BrowserRouter as Router, Route, Switch, Link} from "react-router-dom";
-import {ContextProvider} from './ContextProvider'
+import {ContextProvider} from '../controllers/context'
 import WelcomePage from './WelcomePage';
 import ClassificationPage from "./ClassificationPage";
 import SubsetForm from "./SubsetForm";
@@ -31,11 +31,6 @@ export default function App() {
         </ContextProvider>
     )
 }
-
-
-export const AppContext = createContext({
-    subset: {}
-});
 
 export function NoMatch({location}) {
     return (
