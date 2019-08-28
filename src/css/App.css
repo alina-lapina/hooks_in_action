@@ -27,3 +27,8 @@
   padding-right: 30px;
 }
 
+.App a {
+  text-decoration: none;
+  color: black
+}
+

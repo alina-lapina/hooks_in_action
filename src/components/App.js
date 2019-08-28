@@ -4,8 +4,9 @@ import '../css/App.css';
 import {BrowserRouter as Router, Route, Switch, Link} from "react-router-dom";
 import {ContextProvider} from '../controllers/context'
 import WelcomePage from './WelcomePage';
-import ClassificationPage from "./ClassificationPage";
-import SubsetForm from "./SubsetForm";
+import UseStateDemo from "./UseStateDemo";
+import UseContextDemo from "./UseContextDemo";
+import UseEffectDemo from "./UseEffectDemo";
 
 export default function App() {
     return (
@@ -22,8 +23,9 @@ export default function App() {
                     </header>
                     <Switch>
                         <Route path="/" exact component={WelcomePage}/>
-                        <Route path="/subsets/:id([0-9]+)" component={ClassificationPage}/>
-                        <Route path="/create" component={SubsetForm}/>
+                        <Route path="/useState" component={UseStateDemo}/>
+                        <Route path="/useContext" component={UseContextDemo}/>
+                        <Route path="/useEffect" component={UseEffectDemo}/>
                         <Route component={NoMatch}/>
                     </Switch>
                 </div>
