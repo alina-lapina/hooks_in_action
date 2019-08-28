@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../images/SSB_logo.png';
+import logo from '../images/AlinaLapina.jpg';
 import '../css/App.css';
 import {BrowserRouter as Router, Route, Switch, Link} from "react-router-dom";
 import {ContextProvider} from '../controllers/context'
@@ -15,8 +15,8 @@ export default function App() {
                     <header className="App-header">
                         <div className="App-name">
                             <Link to="/">
-                                <img src={logo} className="App-logo" alt="SSB logo"/>
-                                Klass uttrekk admin
+                                <img src={logo} className="App-logo" alt="Alina Lapina's avatar"/>
+                                React Hooks in action
                             </Link>
                         </div>
                     </header>
