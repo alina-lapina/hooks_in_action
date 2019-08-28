@@ -1,18 +1,44 @@
 import React from 'react';
 import logo from '../images/AlinaLapina.jpg';
 import '../css/App.css';
+import {BrowserRouter as Router, Route, Switch, Link} from "react-router-dom";
+import {ContextProvider} from '../controllers/context'
 import WelcomePage from './WelcomePage';
+import UseStateDemo from "./UseStateDemo";
+import UseContextDemo from "./UseContextDemo";
+import UseEffectDemo from "./UseEffectDemo";
 
 export default function App() {
     return (
-        <div className="App">
-            <header className="App-header">
-                <div className="App-name">
-                    <img src={logo} className="App-logo" alt="Alina Lapina's avatar"/>
-                    React Hooks in action
+        <ContextProvider>
+            <Router>
+                <div className="App">
+                    <header className="App-header">
+                        <div className="App-name">
+                            <Link to="/">
+                                <img src={logo} className="App-logo" alt="Alina Lapina's avatar"/>
+                                React Hooks in action
+                            </Link>
+                        </div>
+                    </header>
+                    <Switch>
+                        <Route path="/" exact component={WelcomePage}/>
+                        <Route path="/useState" component={UseStateDemo}/>
+                        <Route path="/useContext" component={UseContextDemo}/>
+                        <Route path="/useEffect" component={UseEffectDemo}/>
+                        <Route component={NoMatch}/>
+                    </Switch>
                 </div>
-            </header>
-            <WelcomePage/>
+            </Router>
+        </ContextProvider>
+    )
+}
+
+export function NoMatch({location}) {
+    return (
+        <div className="page">
+            <h3>No match for <code>{location.pathname}</code>.</h3>
+            <p>Back to <Link to="/">home page</Link></p>
         </div>
     );
 }
