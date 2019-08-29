@@ -1,14 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
+import {AppContext} from "../controllers/context";
 
 export default function UseEffectDemo() {
-    useEffect(() => console.log('mounted or updated'));
-
-    useEffect(() => {return () => {console.log('will unmount');}}, []);
+    const [subset] = useContext(AppContext);
 
     const [count, setCount] = useState(0);
-    useEffect(() => {document.title = `You clicked ${count} times`;});
-
+    useEffect(() => console.log('mounted'), []);
     useEffect(() => console.log('count updated'), [count]);
+    useEffect(() => console.log('updated'));
+    useEffect(() => {return () => {console.log('will unmount');}}, []);
 
     return (
         <div>
@@ -16,6 +16,7 @@ export default function UseEffectDemo() {
             <button onClick={() => setCount(count + 1)}>
                 Click me
             </button>
+            <h1>Infor fra kontext: {subset.description}</h1>
         </div>
     );
 }
