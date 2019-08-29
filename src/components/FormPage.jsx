@@ -11,13 +11,29 @@ export default function FormPage() {
         <div className="page">
             <h1>Classification {subset.name}</h1>
             <h2>Description</h2>
-            <textarea style={{border: 'none'}}
+            <ConbvertibleTextarea id="1234"
+                style={{border: 'none'}}
                       rows="5" cols="150"
                       value={subset.description}
                       onChange={(e) => { subset.description = e.target.value; setSubset({...subset});}}
+            />
+            <textarea style={{border: 'none'}}
+                                    rows="5" cols="150"
+                                    value={subset.description}
+                                    onChange={(e) => { subset.description = e.target.value; setSubset({...subset});}}
             />
             <h2>Raw subset from context</h2>
             <pre>{JSON.stringify(subset, null, 4)}</pre>
         </div>
     );
+}
+
+export function ConbvertibleTextarea(props) {
+    return (
+        <textarea style={props.style}
+                  rows="5" cols="150"
+                  value={props.value}
+                  onChange={props.onChange}
+        />
+    )
 }
