@@ -29,11 +29,22 @@ export default function FormPage() {
 }
 
 export function ConbvertibleTextarea(props) {
-    return (
-        <textarea style={props.style}
-                  rows="5" cols="150"
-                  value={props.value}
-                  onChange={props.onChange}
+
+    const asTextarea = () => {
+        return <textarea style={props.style}
+                         rows="5" cols="150"
+                         value={props.value}
+                         onChange={props.onChange}
         />
+    };
+    const asText = () => {
+        return <p>{props.value}</p>
+    };
+
+    return (
+        <>
+            {asText()}
+            {asTextarea()}
+        </>
     )
 }
