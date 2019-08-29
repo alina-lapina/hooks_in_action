@@ -10,7 +10,7 @@ export default function WelcomePage() {
             <h2>Source code</h2>
             <p>You can find the source code on <a
                     className="App-link"
-                    href="https://github.com/alina-lapina/hooks_in_action.git>GitHub"
+                    href="https://github.com/alina-lapina/hooks_in_action.git"
                     target="_blank"
                     rel="noopener noreferrer"
                 >GitHub repository</a>
