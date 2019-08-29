@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useState, useContext} from 'react';
 import '../css/pages.css';
 import {AppContext} from '../controllers/context';
 
@@ -11,7 +11,7 @@ export default function FormPage() {
         <div className="page">
             <h1>Classification {subset.name}</h1>
             <h2>Description</h2>
-            <ConbvertibleTextarea id="1234"
+            <ConvertibleTextarea id="1234"
                 style={{border: 'none'}}
                       rows="5" cols="150"
                       value={subset.description}
@@ -28,23 +28,31 @@ export default function FormPage() {
     );
 }
 
-export function ConbvertibleTextarea(props) {
 
+export function Textarea(props) {
+    const [text, setText] = useState(props.value);
+    const handleChange = e => setText(e.target.value);
+    return <textarea rows="5" cols="150"
+                     value={text}
+                     onChange={ handleChange }
+    />
+
+}
+export function ConvertibleTextarea(props) {
     const asTextarea = () => {
-        return <textarea style={props.style}
-                         rows="5" cols="150"
-                         value={props.value}
-                         onChange={props.onChange}
-        />
+        return <Textarea value={props.value} />
     };
     const asText = () => {
         return <p>{props.value}</p>
     };
 
+    const [look, setLook] = useState(<p>Init</p>);
+
     return (
         <>
-            {asText()}
-            {asTextarea()}
+            <button onClick={() => setLook(asTextarea())}>As textarea</button>
+            <button onClick={() => setLook(asText())}>As text</button>
+            {look}
         </>
     )
 }
