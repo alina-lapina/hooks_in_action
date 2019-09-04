@@ -8,6 +8,7 @@ import UseStateDemo from "./UseStateDemo";
 import UseContextDemo from "./UseContextDemo";
 import UseEffectDemo from "./UseEffectDemo";
 import FormPage from "./FormPage";
+import UseFormDemo from "./UseFormDemo";
 
 export default function App() {
     return (
@@ -27,6 +28,7 @@ export default function App() {
                         <Route path="/useState" component={UseStateDemo}/>
                         <Route path="/useContext" component={UseContextDemo}/>
                         <Route path="/useEffect" component={UseEffectDemo}/>
+                        <Route path="/useForm" component={UseFormDemo}/>
                         <Route path="/form" component={FormPage}/>
                         <Route component={NoMatch}/>
                     </Switch>
