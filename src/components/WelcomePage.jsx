@@ -18,7 +18,8 @@ export default function WelcomePage() {
 
             <button><Link to="/useState">Use State Demo Page</Link></button><br/><br/>
             <button><Link to="/useContext">Use Context Demo Page</Link></button><br/><br/>
-            <button><Link to="/useEffect">Use Effect Demo Page</Link></button><br/>
+            <button><Link to="/useEffect">Use Effect Demo Page</Link></button><br/><br/>
+            <button><Link to="/useForm">Use Form Demo Page</Link></button>
         </div>
     );
 }

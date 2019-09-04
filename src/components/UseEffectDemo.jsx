@@ -16,7 +16,7 @@ export default function UseEffectDemo() {
             <button onClick={() => setCount(count + 1)}>
                 Click me
             </button>
-            <h1>Infor fra kontext: {subset.description}</h1>
+            <h1>Info fra context: {subset.description}</h1>
         </div>
     );
 }
