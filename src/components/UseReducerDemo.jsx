@@ -16,7 +16,9 @@ export default function UseReducerDemoPage() {
         }
     }
 
-    const [subset, dispatch] = useReducer(subsetReduser, {description: "default"});
+    const [subset, dispatch] = useReducer(subsetReduser, {
+        name: "My name",
+        description: "default"});
 
     return (
         <div className="page">
