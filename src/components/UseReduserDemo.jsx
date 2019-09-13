@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import React, {useReducer} from 'react';
 import '../css/pages.css';
 
 export default function UseReduserDemoPage() {
-    const [subset, setSubset] = useState({description: "default"});
+    const [subset, setSubset] = useReducer((state, action) => action, {description: "default"});
 
     return (
         <div className="page">
