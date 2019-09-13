@@ -8,6 +8,9 @@ export default function UseReducerDemoPage() {
             case "create": {
                 return action.data;
             }
+            case "description": {
+                return  {...state, description: action.data};
+            }
             default:
                 return state;
         }
@@ -23,8 +26,7 @@ export default function UseReducerDemoPage() {
                       value={subset.description}
                       onChange={(e) => {dispatch({
                               type: "create",
-                              data: {...subset, description: e.target.value}})
-                      }}
+                              data: e.target.value})}}
             />
             <h2>Raw subset from context</h2>
             <pre>{JSON.stringify(subset, null, 4)}</pre>
