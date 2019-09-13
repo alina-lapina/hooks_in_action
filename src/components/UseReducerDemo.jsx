@@ -7,21 +7,19 @@ export default function UseReducerDemoPage() {
         name: "My name",
         description: "default"};
 
-    function subsetReduser(state, action) {
-        switch (action.type) {
+    function subsetReduser(state, {action, data}) {
+        switch (action) {
             case "create": {
-                return action.data;
+                return data;
             }
             case "description": {
-                return  {...state, description: action.data};
+                return  {...state, description: data};
             }
             case "reset": {
                 return bookInit;
             }
             case "empty": {
-                return {
-                    name: "",
-                    description: ""};
+                return { name: "", description: "" };
             }
             default:
                 return state;
@@ -37,11 +35,11 @@ export default function UseReducerDemoPage() {
                       rows="5" cols="150"
                       value={book.description}
                       onChange={ e => dispatch({
-                              type: "description",
+                              action: "description",
                               data: e.target.value})}
             />
-            <button onClick={e => dispatch({type: "reset"})}>reset</button>
-            <button onClick={e => dispatch({type: "empty"})}>empty</button>
+            <button onClick={e => dispatch({action: "reset"})}>reset</button>
+            <button onClick={e => dispatch({action: "empty"})}>empty</button>
             <h2>Raw subset from context</h2>
             <pre>{JSON.stringify(book, null, 4)}</pre>
         </div>
