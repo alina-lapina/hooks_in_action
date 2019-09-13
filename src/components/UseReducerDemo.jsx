@@ -5,9 +5,10 @@ export default function UseReducerDemoPage() {
 
     const bookInit = {
         name: "My name",
-        description: "default"};
+        description: "default"
+    };
 
-    function subsetReduser(state, {action, data}) {
+    function subsetReducer(state, {action, data}) {
         switch (action) {
             case "create": {
                 return data;
@@ -26,7 +27,7 @@ export default function UseReducerDemoPage() {
         }
     }
 
-    const [book, dispatch] = useReducer(subsetReduser, bookInit);
+    const [book, dispatch] = useReducer(subsetReducer, bookInit);
 
     return (
         <div className="page">
