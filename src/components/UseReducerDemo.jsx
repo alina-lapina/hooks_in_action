@@ -25,7 +25,7 @@ export default function UseReducerDemoPage() {
                       rows="5" cols="150"
                       value={subset.description}
                       onChange={(e) => {dispatch({
-                              type: "create",
+                              type: "description",
                               data: e.target.value})}}
             />
             <h2>Raw subset from context</h2>
