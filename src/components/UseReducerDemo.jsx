@@ -8,7 +8,7 @@ export default function UseReducerDemoPage() {
         description: "default"
     };
 
-    function subsetReducer(state, {action, data}) {
+    function subsetReducer(state, {action, data = {}}) {
         switch (action) {
             case "create": {
                 return data;
