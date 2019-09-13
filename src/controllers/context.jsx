@@ -12,7 +12,7 @@ export const ContextProvider = ({ children }) => {
         description: "default"
     };
 
-    function subsetReducer(state, {action, data = {}}) {
+    function bookReducer(state, {action, data = {}}) {
         switch (action) {
             case "create": {
                 return data;
@@ -31,7 +31,7 @@ export const ContextProvider = ({ children }) => {
         }
     }
 
-    const [book, dispatch] = useReducer(subsetReducer, bookInit);
+    const [book, dispatch] = useReducer(bookReducer, bookInit);
 
     return (
         <AppContext.Provider value={{subset, setSubset, book, dispatch}}>
