@@ -39,8 +39,8 @@ export default function UseReducerDemoPage() {
                               action: "description",
                               data: e.target.value})}
             />
-            <button onClick={e => dispatch({action: "reset"})}>reset</button>
-            <button onClick={e => dispatch({action: "empty"})}>empty</button>
+            <button onClick={ () => dispatch({action: "reset"})}>reset</button>
+            <button onClick={ () => dispatch({action: "empty"})}>empty</button>
             <h2>Raw subset from context</h2>
             <pre>{JSON.stringify(book, null, 4)}</pre>
         </div>
