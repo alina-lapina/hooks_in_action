@@ -2,7 +2,18 @@ import React, {useReducer} from 'react';
 import '../css/pages.css';
 
 export default function UseReduserDemoPage() {
-    const [subset, setSubset] = useReducer((state, action) => action, {description: "default"});
+
+    function subsetReduser(state, action) {
+        switch (action.type) {
+            case "create": {
+                return action.data;
+            }
+            default:
+                return state;
+        }
+    }
+
+    const [subset, dispatch] = useReducer(subsetReduser, {description: "default"});
 
     return (
         <div className="page">
@@ -10,7 +21,10 @@ export default function UseReduserDemoPage() {
             <textarea style={{border: 'none'}}
                       rows="5" cols="150"
                       value={subset.description}
-                      onChange={(e) => { subset.description = e.target.value; setSubset({...subset});}}
+                      onChange={(e) => {dispatch({
+                              type: "create",
+                              data: {...subset, description: e.target.value}})
+                      }}
             />
             <h2>Raw subset from context</h2>
             <pre>{JSON.stringify(subset, null, 4)}</pre>
