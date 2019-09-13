@@ -7,10 +7,21 @@ export const AppContext = createContext({
 export const ContextProvider = ({ children }) => {
     const [subset, setSubset] = useState(AppContext._currentValue);
 
-    const bookInit = {
-        name: "My name",
-        description: "default"
-    };
+    const bookWizard = useBookWizard(
+        {
+            name: "My name",
+            description: "default"
+        }
+    );
+
+    return (
+        <AppContext.Provider value={{subset, setSubset, bookWizard}}>
+            {children}
+        </AppContext.Provider>
+    );
+};
+
+export const useBookWizard = (bookInit) => {
 
     function bookReducer(state, {action, data = {}}) {
         switch (action) {
@@ -33,9 +44,6 @@ export const ContextProvider = ({ children }) => {
 
     const [book, dispatch] = useReducer(bookReducer, bookInit);
 
-    return (
-        <AppContext.Provider value={{subset, setSubset, book, dispatch}}>
-            {children}
-        </AppContext.Provider>
-    );
+    return {book, dispatch};
+
 };
