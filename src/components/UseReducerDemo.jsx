@@ -1,7 +1,7 @@
 import React, {useReducer} from 'react';
 import '../css/pages.css';
 
-export default function UseReduserDemoPage() {
+export default function UseReducerDemoPage() {
 
     function subsetReduser(state, action) {
         switch (action.type) {
