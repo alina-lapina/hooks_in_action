@@ -3,7 +3,7 @@ import '../css/pages.css';
 import {AppContext} from '../controllers/context';
 
 export default function FormPage() {
-    const [subset, setSubset] = useContext(AppContext);
+    const {subset, setSubset} = useContext(AppContext);
     const classification = require('../tests/json/classification131');
     setSubset(classification);
 

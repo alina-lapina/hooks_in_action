@@ -1,33 +1,10 @@
-import React, {useReducer} from 'react';
+import React, {useContext} from 'react';
 import '../css/pages.css';
+import {AppContext} from "../controllers/context";
 
 export default function UseReducerDemoPage() {
 
-    const bookInit = {
-        name: "My name",
-        description: "default"
-    };
-
-    function subsetReducer(state, {action, data = {}}) {
-        switch (action) {
-            case "create": {
-                return data;
-            }
-            case "description": {
-                return  {...state, description: data};
-            }
-            case "reset": {
-                return bookInit;
-            }
-            case "empty": {
-                return { name: "", description: "" };
-            }
-            default:
-                return state;
-        }
-    }
-
-    const [book, dispatch] = useReducer(subsetReducer, bookInit);
+    const {book, dispatch} = useContext(AppContext);
 
     return (
         <div className="page">
