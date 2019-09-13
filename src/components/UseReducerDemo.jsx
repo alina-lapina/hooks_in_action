@@ -3,6 +3,10 @@ import '../css/pages.css';
 
 export default function UseReducerDemoPage() {
 
+    const bookInit = {
+        name: "My name",
+        description: "default"};
+
     function subsetReduser(state, action) {
         switch (action.type) {
             case "create": {
@@ -11,27 +15,35 @@ export default function UseReducerDemoPage() {
             case "description": {
                 return  {...state, description: action.data};
             }
+            case "reset": {
+                return bookInit;
+            }
+            case "empty": {
+                return {
+                    name: "",
+                    description: ""};
+            }
             default:
                 return state;
         }
     }
 
-    const [subset, dispatch] = useReducer(subsetReduser, {
-        name: "My name",
-        description: "default"});
+    const [book, dispatch] = useReducer(subsetReduser, bookInit);
 
     return (
         <div className="page">
             <h1>Use reduser for deep updating the object</h1>
             <textarea style={{border: 'none'}}
                       rows="5" cols="150"
-                      value={subset.description}
-                      onChange={(e) => {dispatch({
+                      value={book.description}
+                      onChange={ e => dispatch({
                               type: "description",
-                              data: e.target.value})}}
+                              data: e.target.value})}
             />
+            <button onClick={e => dispatch({type: "reset"})}>reset</button>
+            <button onClick={e => dispatch({type: "empty"})}>empty</button>
             <h2>Raw subset from context</h2>
-            <pre>{JSON.stringify(subset, null, 4)}</pre>
+            <pre>{JSON.stringify(book, null, 4)}</pre>
         </div>
     );
 }
