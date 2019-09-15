@@ -9,6 +9,7 @@ import UseContextDemo from "./UseContextDemo";
 import UseEffectDemo from "./UseEffectDemo";
 import FormPage from "./FormPage";
 import UseReducerDemo from "./UseReducerDemo";
+import NavigationDemoPage from "./NavigationDemoPage";
 
 export default function App() {
     return (
@@ -29,6 +30,7 @@ export default function App() {
                         <Route path="/useContext" component={UseContextDemo}/>
                         <Route path="/useEffect" component={UseEffectDemo}/>
                         <Route path="/useReducer" component={UseReducerDemo}/>
+                        <Route path="/nav" component={NavigationDemoPage}/>
                         <Route path="/form" component={FormPage}/>
                         <Route component={NoMatch}/>
                     </Switch>
