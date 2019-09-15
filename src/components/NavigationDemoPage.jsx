@@ -21,13 +21,13 @@ export function Navigation({children}) {
     return (<>
             <ProgressBar steps={children} handleClick={setStep} />
             <div>{children[step]}</div>
-            <PrevNext steps={children} handleClick={setStep} />
+            <PrevNext min={step===0} max={step===children.length-1} handleClick={setStep} />
         </>
     )
 }
 
 export const Step = ({children}) => {
-    return (<div className="Step">{children}</div>)
+    return <>{children}</>;
 };
 
 export const ProgressBar = ({steps, handleClick}) => {
@@ -43,7 +43,7 @@ export const ProgressBar = ({steps, handleClick}) => {
     )
 };
 
-export const PrevNext = ({steps, handleClick}) => {
+export const PrevNext = ({min, max, handleClick}) => {
 
     const next = () => {
         handleClick((state) => (state+1));
@@ -55,8 +55,8 @@ export const PrevNext = ({steps, handleClick}) => {
 
     return (
         <>
-           <button onClick={ prev }>Previous</button>
-           <button onClick={ next }>Next</button>
+           <button disabled={min} onClick={ prev }>Previous</button>
+           <button disabled={max} onClick={ next }>Next</button>
         </>
     )
 };
