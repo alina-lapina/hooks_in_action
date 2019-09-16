@@ -19,11 +19,10 @@ export default function WelcomePage() {
             <button><Link to="/useState">Use State Demo Page</Link></button><br/><br/>
             <button><Link to="/useContext">Use Context Demo Page</Link></button><br/><br/>
             <button><Link to="/useEffect">Use Effect Demo Page</Link></button><br/><br/>
-            <button><Link to="/useForm">Use Form Demo Page</Link></button><br/><br/>
-            <button><Link to="/form">ConvertibleDemo</Link></button>
             <button><Link to="/useReducer">Use Reducer Demo Page</Link></button><br/><br/>
+            <button><Link to="/useForm">Use Form Demo Page</Link></button><br/><br/>
+            <button><Link to="/form">ConvertibleDemo</Link></button><br/><br/>
             <button><Link to="/nav">Navigation Demo Page</Link></button><br/><br/>
-            <button><Link to="/form">Form Page</Link></button>
         </div>
     );
 }
