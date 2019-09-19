@@ -7,9 +7,9 @@ export default function NavigationDemoPage() {
         <div className="page">
             <h1>Navigation</h1>
             <Navigation>
-                <Step><p>Step 1</p></Step>
-                <Step><p>Step 2</p></Step>
-                <Step><p>Step 3</p></Step>
+                <Step label={"First"}><p>Step 1</p></Step>
+                <Step label={"Second"}><p>Step 2</p></Step>
+                <Step label={"Third"}><p>Step 3</p></Step>
             </Navigation>
         </div>
     )
@@ -37,7 +37,7 @@ export const ProgressBar = ({steps, handleClick}) => {
             {steps.map((step, index) => (
                 <button key={index}
                         onClick={ () => handleClick(index) }
-                >{index+1}</button>
+                >{step.props.label}</button>
             ))}
         </>
     )
