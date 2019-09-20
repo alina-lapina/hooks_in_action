@@ -11,6 +11,7 @@ import FormPage from "./FormPage";
 import UseFormDemo from "./UseFormDemo";
 import UseReducerDemo from "./UseReducerDemo";
 import NavigationDemoPage from "./NavigationDemoPage";
+import AutosuggestDemo from "./AutosuggestDemo";
 
 export default function App() {
     return (
@@ -33,6 +34,7 @@ export default function App() {
                         <Route path="/useReducer" component={UseReducerDemo}/>
                         <Route path="/useForm" component={UseFormDemo}/>
                         <Route path="/nav" component={NavigationDemoPage}/>
+                        <Route path="/autosuggest" component={AutosuggestDemo}/>
                         <Route path="/form" component={FormPage}/>
                         <Route component={NoMatch}/>
                     </Switch>
