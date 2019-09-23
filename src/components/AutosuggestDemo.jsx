@@ -65,12 +65,16 @@ export default function AutosuggestDemo () {
                     e.preventDefault();
                     console.log("submit?", e);
                 }}
+                onBlur={() => {
+                    setValue("");
+                    setSuggestion([]);
+                }}
             />
         </div>
     );
 }
 
-export const Search = ({value, suggestions, onChange, onSubmit}) => {
+export const Search = ({value, suggestions, onChange, onSubmit, onBlur}) => {
 
     // inspired: https://www.w3schools.com/howto/howto_js_autocomplete.asp
 
@@ -104,7 +108,7 @@ export const Search = ({value, suggestions, onChange, onSubmit}) => {
 
     return (
         <form autoComplete="off"
-              onSubmit={onSubmit}>
+              onSubmit={onSubmit} onBlur={onBlur}>
             <div className="autocomplete" style={{width:"300px"}}>
                 <input type="search" name="countrySearch" ref={countrySearch}
                        placeholder="Country" value={value} onChange={onChange}
