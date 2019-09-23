@@ -5,25 +5,6 @@ export default function AutosuggestDemo () {
 
     // FIXME: sanitize input
 
-    const [value, setValue] = useState("");
-
-    const handleInput = (e) => {
-        setValue(e.target.value);
-        const s = countries.filter(i => i.toLowerCase().search(e.target.value.toLowerCase()) > -1)
-            .map(i => highlight(i,e.target.value.toLowerCase()));
-        setSuggestion([...s]);
-    };
-
-
-    function highlight(origin, highlight) {
-        const i = origin.toLowerCase().search(highlight.toLowerCase());
-        return  <>
-            <span>{origin.substr(0, i)}</span>
-            <span style={{color:"red"}}>{origin.substr(i, highlight.length)}</span>
-            <span>{origin.substr(i+highlight.length, origin.length)}</span>
-        </>;
-    }
-
     const countries = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua & Barbuda",
         "Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh",
         "Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia & Herzegovina",
@@ -51,38 +32,33 @@ export default function AutosuggestDemo () {
         "Uganda","Ukraine","United Arab Emirates","United Kingdom","United States of America","Uruguay",
         "Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Virgin Islands (US)","Yemen","Zambia",
         "Zimbabwe"];
-    const [suggestions, setSuggestion] = useState([]);
-
 
     return (
         <div className="page">
             <h3>Autosuggest Demo Page</h3>
-            <Search
-                value={value}
-                onChange={handleInput}
-                suggestions={suggestions}
-                onSubmit={(e) => {
-                    e.preventDefault();
-                    console.log("submit?", e);
-                }}
-                onBlur={() => {
-                    setValue("");
-                    setSuggestion([]);
-                }}
-            />
+            <Search countries={countries} />
         </div>
     );
 }
 
-export const Search = ({value, suggestions, onChange, onSubmit, onBlur}) => {
-
+export const Search = ({countries}) => {
     // inspired: https://www.w3schools.com/howto/howto_js_autocomplete.asp
 
     const countrySearch = useRef(null);
 
+    const [value, setValue] = useState("");
+    const [suggestions, setSuggestion] = useState([]);
+
+    const handleInput = (e) => {
+        setValue(e.target.value);
+        const s = countries.filter(i => i.toLowerCase().search(e.target.value.toLowerCase()) > -1);
+        setSuggestion([...s]);
+    };
+
     const [active, setActive] = useState(-1);
 
     function keyHandler(e) {
+        console.log("keydown");
         if (e.keyCode === 40) {/*DOWN*/
             setActive(active => (active+1) % suggestions.length);
         } else if (e.keyCode === 38) { /*UP*/
@@ -98,30 +74,46 @@ export const Search = ({value, suggestions, onChange, onSubmit, onBlur}) => {
         if (index === -1) {
             return countrySearch.current.value;
         } else {
-            countrySearch.current.value = suggestions[index];
+            setSuggestion([]);
+            setValue(suggestions[index]);
             return suggestions[index]
         }
     }
 
+    function highlight(origin, substring) {
+        const i = origin.toLowerCase().search(substring.toLowerCase());
+        return  <>
+            <span>{origin.substr(0, i)}</span>
+            <span style={{color:"red"}}>{origin.substr(i, substring.length)}</span>
+            <span>{origin.substr(i+substring.length, origin.length)}</span>
+        </>;
+    }
+
     // TODO: convert divs to list items (li)
-    // TODO: return useful object
+    // TODO: onSearch reaction (click on x-button to the input="search")
 
     return (
-        <form autoComplete="off"
-              onSubmit={onSubmit} onBlur={onBlur}>
+        <>
             <div className="autocomplete" style={{width:"300px"}}>
                 <input type="search" name="countrySearch" ref={countrySearch}
-                       placeholder="Country" value={value} onChange={onChange}
+                       placeholder="Country" value={value} onChange={handleInput}
                        onKeyDown={keyHandler} />
                 <div id="autocomplete-list" className="autocomplete-items">
                     {suggestions.map((suggestion, i) => (
-                        <div key={i} className={i===active? "autocomplete-active" : "autocomplete"}
-                             onClick={() => console.log("choosen", suggestion)}>
-                            {suggestion}
+                        <div key={i} className={i===active ? "autocomplete-active" : "autocomplete"}
+                             onClick={(e) => {
+                                 e.preventDefault();
+                                 console.log("choosen", suggestion);
+                                 setActive(i);
+                                 countrySearch.current.focus();
+                                 setSuggestion([]);
+                                 setValue(suggestion);
+                             }}>
+                            {highlight(suggestion,value)}
                         </div>))}
                 </div>
             </div>
-            <input type="submit" value="Search" />
-        </form>
+            <button>Search</button>
+        </>
     );
 };

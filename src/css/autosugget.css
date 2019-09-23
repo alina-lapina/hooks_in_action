@@ -15,7 +15,10 @@ input[type=search] {
     background-color: #f1f1f1;
     width: 100%;
 }
-input[type=submit] {
+button {
+    border: 1px solid transparent;
+    padding: 10px;
+    font-size: 16px;
     background-color: DodgerBlue;
     color: #fff;
 }
