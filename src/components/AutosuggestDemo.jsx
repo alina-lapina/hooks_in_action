@@ -72,14 +72,12 @@ export const Search = ({value, onChange, onSubmit, suggestions}) => {
 
     const [active, setActive] = useState(-1);
 
-    // TODO: edge cases
-
     function keyHandler(e) {
-        if (e.keyCode == 40) {/*DOWN*/
-            setActive((active) => active+1);
-        } else if (e.keyCode == 38) { /*UP*/
-            setActive((active) => active-1);
-        } else if (e.keyCode == 13) {/*ENTER*/
+        if (e.keyCode === 40) {/*DOWN*/
+            setActive(active => (active+1)%suggestions.length);
+        } else if (e.keyCode === 38) { /*UP*/
+            setActive(active => (active-1 < 0) ? suggestions.length-1 : active-1);
+        } else if (e.keyCode === 13) {/*ENTER*/
             e.preventDefault();
             if (active > -1) {
                 console.log("choosen2", suggestions[active]);
