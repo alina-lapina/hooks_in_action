@@ -5,16 +5,27 @@ export default function AutosuggestDemo () {
 
     // FIXME: sanitize input
 
-    const [value, setValue] = useState("init");
+    const [value, setValue] = useState("");
     const handleInput = (e) => {
         setValue(e.target.value);
-        const s = countries.filter(i => i.toLowerCase().search(e.target.value) > -1);
+        const s = countries.filter(i => i.toLowerCase().search(e.target.value.toLowerCase()) > -1)
+            .map(i => highlight(i,e.target.value.toLowerCase()));
         setSuggestion([...s]);
     };
 
-    const countries = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua &amp; Barbuda",
+
+    function highlight(origin, highlight) {
+        const i = origin.toLowerCase().search(highlight.toLowerCase());
+        return  <>
+            <span>{origin.substr(0, i)}</span>
+            <span style={{color:"red"}}>{origin.substr(i, highlight.length)}</span>
+            <span>{origin.substr(i+highlight.length, origin.length)}</span>
+        </>;
+    }
+
+    const countries = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua & Barbuda",
         "Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh",
-        "Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia &amp; Herzegovina",
+        "Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia & Herzegovina",
         "Botswana","Brazil","British Virgin Islands","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia",
         "Cameroon","Canada","Cape Verde","Cayman Islands","Central Arfrican Republic","Chad","Chile","China",
         "Colombia","Congo","Cook Islands","Costa Rica","Cote D Ivoire","Croatia","Cuba","Curacao","Cyprus",
@@ -30,16 +41,16 @@ export default function AutosuggestDemo () {
         "Morocco","Mozambique","Myanmar","Namibia","Nauro","Nepal","Netherlands","Netherlands Antilles",
         "New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","North Korea","Norway","Oman","Pakistan",
         "Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal",
-        "Puerto Rico","Qatar","Reunion","Romania","Russia","Rwanda","Saint Pierre &amp; Miquelon","Samoa",
+        "Puerto Rico","Qatar","Reunion","Romania","Russia","Rwanda","Saint Pierre & Miquelon","Samoa",
         "San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone",
         "Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan",
-        "Spain","Sri Lanka","St Kitts &amp; Nevis","St Lucia","St Vincent","Sudan","Suriname","Swaziland",
+        "Spain","Sri Lanka","St Kitts & Nevis","St Lucia","St Vincent","Sudan","Suriname","Swaziland",
         "Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor L'Este","Togo",
-        "Tonga","Trinidad &amp; Tobago","Tunisia","Turkey","Turkmenistan","Turks &amp; Caicos","Tuvalu",
+        "Tonga","Trinidad & Tobago","Tunisia","Turkey","Turkmenistan","Turks & Caicos","Tuvalu",
         "Uganda","Ukraine","United Arab Emirates","United Kingdom","United States of America","Uruguay",
         "Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Virgin Islands (US)","Yemen","Zambia",
         "Zimbabwe"];
-    const [suggestions, setSuggestion] = useState(["Alina"]);
+    const [suggestions, setSuggestion] = useState([]);
 
 
     return (
@@ -49,12 +60,13 @@ export default function AutosuggestDemo () {
                 value={value}
                 onChange={handleInput}
                 suggestions={suggestions}
+                onSubmit={(e) => {e.preventDefault();console.log("submit?", e);}}
             />
         </div>
     );
 }
 
-export const Search = ({value, onChange, suggestions}) => {
+export const Search = ({value, onChange, onSubmit, suggestions}) => {
 
     // inspired: https://www.w3schools.com/howto/howto_js_autocomplete.asp
 
@@ -74,11 +86,15 @@ export const Search = ({value, onChange, suggestions}) => {
             }
         }
     }
-    
+
+    // TODO: convert divs to list items (li)
+    // TODO: return useful object
+
     return (
-        <form autoComplete="off" onSubmit={(e) => console.log("submit?", e)}>
+        <form autoComplete="off"
+              onSubmit={onSubmit}>
             <div className="autocomplete" style={{width:"300px"}}>
-                <input id="myInput" type="text" name="myCountry"
+                <input type="search" name="countrySearch"
                        placeholder="Country" value={value} onChange={onChange}
                        onKeyDown={keyHandler} />
                 <div id="autocomplete-list" className="autocomplete-items">
@@ -89,7 +105,7 @@ export const Search = ({value, onChange, suggestions}) => {
                         </div>))}
                 </div>
             </div>
-            <input type="submit" />
+            <input type="submit" value="Search" />
         </form>
     );
 };
