@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useRef} from "react";
 import "../css/autosugget.css";
 
 export default function AutosuggestDemo () {
@@ -6,6 +6,7 @@ export default function AutosuggestDemo () {
     // FIXME: sanitize input
 
     const [value, setValue] = useState("");
+
     const handleInput = (e) => {
         setValue(e.target.value);
         const s = countries.filter(i => i.toLowerCase().search(e.target.value.toLowerCase()) > -1)
@@ -73,6 +74,8 @@ export const Search = ({value, suggestions, onChange, onSubmit}) => {
 
     // inspired: https://www.w3schools.com/howto/howto_js_autocomplete.asp
 
+    const countrySearch = useRef(null);
+
     const [active, setActive] = useState(-1);
 
     function keyHandler(e) {
@@ -82,7 +85,17 @@ export const Search = ({value, suggestions, onChange, onSubmit}) => {
             setActive(active => active-1 < 0 ? suggestions.length-1 : active-1);
         } else if (e.keyCode === 13) {/*ENTER*/
             e.preventDefault();
-            console.log("choosen2", suggestions[active]);
+            onEnter(active);
+        }
+    }
+
+    function onEnter(index) {
+        console.log("choosen2");
+        if (index === -1) {
+            return countrySearch.current.value;
+        } else {
+            countrySearch.current.value = suggestions[index];
+            return suggestions[index]
         }
     }
 
@@ -93,7 +106,7 @@ export const Search = ({value, suggestions, onChange, onSubmit}) => {
         <form autoComplete="off"
               onSubmit={onSubmit}>
             <div className="autocomplete" style={{width:"300px"}}>
-                <input type="search" name="countrySearch"
+                <input type="search" name="countrySearch" ref={countrySearch}
                        placeholder="Country" value={value} onChange={onChange}
                        onKeyDown={keyHandler} />
                 <div id="autocomplete-list" className="autocomplete-items">
