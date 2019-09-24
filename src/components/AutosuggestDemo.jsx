@@ -76,7 +76,7 @@ export const Search = ({items = [],
             }
             case keys.ENTER: {
                 e.preventDefault();
-                console.log("chosen by ENTER", suggestions[active], value);
+                console.log("Chosen by ENTER", suggestions[active], value);
                 handleChoice(active === -1 ? value : suggestions[active]);
                 break;
             }
@@ -120,7 +120,7 @@ export const Search = ({items = [],
                         <div key={i} className={i===active ? "autocomplete-active" : "autocomplete"}
                              onClick={(e) => {
                                  e.preventDefault();
-                                 console.log("chosen by click", suggestion);
+                                 console.log("Chosen by click", suggestion);
                                  setActive(i);
                                  handleChoice(suggestion);
                              }}>
@@ -129,7 +129,7 @@ export const Search = ({items = [],
                 </div>
             </div>
             <button onClick={() => {
-                console.log("chosen by search button", value);
+                console.log("Chosen by search button", value);
                 handleChoice(value)
             }}>Search</button>
         </>
