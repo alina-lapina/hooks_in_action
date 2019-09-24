@@ -109,6 +109,9 @@ export const Search = ({items = [],
 
     // TODO: async fetch ?
 
+    // TODO: allow styling api
+    // TODO: allow filtering api (strategy)
+
     return (
         <>
             <div className="autocomplete" style={{width:"300px"}}>
