@@ -1,9 +1,10 @@
-import React, {useState, useRef} from "react";
+import React, {useState, useRef, useEffect} from "react";
 import "../css/autosugget.css";
 
 export default function AutosuggestDemo () {
 
-    // FIXME: sanitize input
+    const [chosen, setChosen] = useState("");
+    useEffect(() => {console.log({ newState: chosen })},[chosen]);
 
     const countries = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua & Barbuda",
         "Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh",
@@ -36,48 +37,56 @@ export default function AutosuggestDemo () {
     return (
         <div className="page">
             <h3>Autosuggest Demo Page</h3>
-            <Search countries={countries} />
+            <Search countries={countries} setChosen={ (item) => setChosen(item) }/>
         </div>
     );
 }
 
-export const Search = ({countries}) => {
+export const Search = ({countries, setChosen}) => {
     // inspired: https://www.w3schools.com/howto/howto_js_autocomplete.asp
 
-    const countrySearch = useRef(null);
+    const dom = useRef(null);
 
     const [value, setValue] = useState("");
-    const [suggestions, setSuggestion] = useState([]);
+    const [suggestions, setSuggestions] = useState([]);
+    const [active, setActive] = useState(-1);
 
     const handleInput = (e) => {
         setValue(e.target.value);
-        const s = countries.filter(i => i.toLowerCase().search(e.target.value.toLowerCase()) > -1);
-        setSuggestion([...s]);
+        e.target.value === ""
+            ? setSuggestions([])
+            : setSuggestions(countries.filter(i =>
+                i.toLowerCase().search(e.target.value.toLowerCase()) > -1));
     };
 
-    const [active, setActive] = useState(-1);
-
     function keyHandler(e) {
-        console.log("keydown");
-        if (e.keyCode === 40) {/*DOWN*/
-            setActive(active => (active+1) % suggestions.length);
-        } else if (e.keyCode === 38) { /*UP*/
-            setActive(active => active-1 < 0 ? suggestions.length-1 : active-1);
-        } else if (e.keyCode === 13) {/*ENTER*/
-            e.preventDefault();
-            onEnter(active);
+        const keys = { DOWN: 40, UP: 38, ENTER: 13 };
+        switch (e.keyCode) {
+            case keys.DOWN: {
+                setActive((active + 1) % suggestions.length);
+                break;
+            }
+            case keys.UP: {
+                setActive(active - 1 < 0 ? suggestions.length - 1 : active - 1);
+                break;
+            }
+            case keys.ENTER: {
+                e.preventDefault();
+                console.log("chosen by ENTER", suggestions[active], value);
+                handleChoice(active === -1 ? value : suggestions[active]);
+                break;
+            }
+            default: break;
         }
     }
 
-    function onEnter(index) {
-        console.log("choosen2");
-        if (index === -1) {
-            return countrySearch.current.value;
-        } else {
-            setSuggestion([]);
-            setValue(suggestions[index]);
-            return suggestions[index]
-        }
+    function handleChoice(choice) {
+        setSuggestions([]);
+        setValue(choice);
+        dom.current.focus();
+        setActive(-1);
+
+        choice.length > 0 && setChosen(choice);
     }
 
     function highlight(origin, substring) {
@@ -90,12 +99,14 @@ export const Search = ({countries}) => {
     }
 
     // TODO: convert divs to list items (li)
-    // TODO: onSearch reaction (click on x-button to the input="search")
+    // FIXME: scroll and limit amount of suggestion shown by screen size
+
+    // FIXME: sanitize input !!!!
 
     return (
         <>
             <div className="autocomplete" style={{width:"300px"}}>
-                <input type="search" name="countrySearch" ref={countrySearch}
+                <input type="search" name="countrySearch" ref={dom}
                        placeholder="Country" value={value} onChange={handleInput}
                        onKeyDown={keyHandler} />
                 <div id="autocomplete-list" className="autocomplete-items">
@@ -103,17 +114,18 @@ export const Search = ({countries}) => {
                         <div key={i} className={i===active ? "autocomplete-active" : "autocomplete"}
                              onClick={(e) => {
                                  e.preventDefault();
-                                 console.log("choosen", suggestion);
+                                 console.log("chosen by click", suggestion);
                                  setActive(i);
-                                 countrySearch.current.focus();
-                                 setSuggestion([]);
-                                 setValue(suggestion);
+                                 handleChoice(suggestion);
                              }}>
                             {highlight(suggestion,value)}
                         </div>))}
                 </div>
             </div>
-            <button>Search</button>
+            <button onClick={() => {
+                console.log("chosen by serch button", value);
+                handleChoice(value)
+            }}>Search</button>
         </>
     );
 };
