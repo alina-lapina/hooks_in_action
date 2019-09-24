@@ -103,6 +103,8 @@ export const Search = ({countries, setChosen}) => {
 
     // FIXME: sanitize input !!!!
 
+    // TODO: async fetch ?
+
     return (
         <>
             <div className="autocomplete" style={{width:"300px"}}>
