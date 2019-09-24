@@ -125,7 +125,7 @@ export const Search = ({countries, setChosen}) => {
                 </div>
             </div>
             <button onClick={() => {
-                console.log("chosen by serch button", value);
+                console.log("chosen by search button", value);
                 handleChoice(value)
             }}>Search</button>
         </>
