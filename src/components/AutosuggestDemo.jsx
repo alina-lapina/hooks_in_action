@@ -44,7 +44,9 @@ export default function AutosuggestDemo () {
     );
 }
 
-export const Search = ({items, setChosen, placeholder = "Search"}) => {
+export const Search = ({items,
+                        setChosen = (item) => console.log("coosen item:", item),
+                        placeholder = "Search"}) => {
     // inspired: https://www.w3schools.com/howto/howto_js_autocomplete.asp
 
     const dom = useRef(null);
