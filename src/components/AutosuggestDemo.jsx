@@ -10,8 +10,8 @@ export default function AutosuggestDemo () {
         "Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh",
         "Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia & Herzegovina",
         "Botswana","Brazil","British Virgin Islands","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia",
-        "Cameroon","Canada","Cape Verde","Cayman Islands","Central Arfrican Republic","Chad","Chile","China",
-        "Colombia","Congo","Cook Islands","Costa Rica","Cote D Ivoire","Croatia","Cuba","Curacao","Cyprus",
+        "Cameroon","Canada","Cape Verde","Cayman Islands","Central African Republic","Chad","Chile","China",
+        "Colombia","Congo","Cook Islands","Costa Rica","Cote D'Ivoire","Croatia","Cuba","Curacao","Cyprus",
         "Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador",
         "Equatorial Guinea","Eritrea","Estonia","Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland",
         "France","French Polynesia","French West Indies","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar",
@@ -46,7 +46,10 @@ export default function AutosuggestDemo () {
 
 export const Search = ({items = [],
                            setChosen = (item) => console.log("chosen item:", item),
-                           placeholder = "Search"}) => {
+                           placeholder = "Search",
+                           searchBy = (input, resource) =>
+                               input === "" ? [] : resource.filter(i => i.toLowerCase().search(input.toLowerCase()) > -1)
+                    }) => {
     // inspired: https://www.w3schools.com/howto/howto_js_autocomplete.asp
 
     const dom = useRef(null);
@@ -59,11 +62,6 @@ export const Search = ({items = [],
         setSearchInput(e.target.value);
         setSuggestions(searchBy(e.target.value, items));
     };
-
-    function searchBy(input, resource) {
-        return input === "" ? []
-            : resource.filter(i => i.toLowerCase().search(input.toLowerCase()) > -1);
-    }
 
     function keyHandler(e) {
         const keys = { DOWN: 40, UP: 38, ENTER: 13 };
