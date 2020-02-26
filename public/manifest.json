@@ -1,6 +1,6 @@
 {
-  "short_name": "Klass subsets web",
-  "name": "Classification subsets web application",
+  "short_name": "Hooks in action",
+  "name": "Demo application for React hooks",
   "icons": [
     {
       "src": "favicon.png",
