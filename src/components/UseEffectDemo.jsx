@@ -8,7 +8,7 @@ export default function UseEffectDemo() {
     useEffect(() => console.log('mounted'), []);
     useEffect(() => console.log('count updated'), [count]);
     useEffect(() => console.log('updated'));
-    useEffect(() => {return () => {console.log('will unmount');}}, []);
+    useEffect(() => {return () => console.log('will unmount')}, []);
 
     return (
         <div>
